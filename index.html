@@ -1,0 +1,76 @@
+<style>
+#draggable-element {
+  left: 100px;
+  top: 50px;
+  width:270px;
+  height:240px;
+  background-color:#fefefe;
+  display: none;
+  color:white;
+  border-radius: 10px;
+  padding:17px;
+   box-shadow: 5px 5px 10px 2px #888888;
+  cursor:move;
+  position:absolute;
+  xposition:relative; /* important (all position that's not `static`) */
+
+}
+</style>
+
+
+
+<div id="draggable-element"></div> 
+myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest myTest 
+
+
+<script>
+
+var selected = null, // Object of the element to be moved
+    x_pos = 0, y_pos = 0, // Stores x & y coordinates of the mouse pointer
+    x_elem = 0, y_elem = 0; // Stores top, left values (edge) of the element
+
+// Will be called when user starts dragging an element
+function _drag_init(elem) {
+    // Store the object of the element which needs to be moved
+    selected = elem;
+    x_elem = x_pos - selected.offsetLeft;
+    y_elem = y_pos - selected.offsetTop;
+}
+
+// Will be called when user dragging an element
+function _move_elem(e) {
+    x_pos = document.all ? window.event.clientX : e.pageX;
+    y_pos = document.all ? window.event.clientY : e.pageY;
+    if (selected !== null) {
+        selected.style.left = (x_pos - x_elem) + 'px';
+        selected.style.top = (y_pos - y_elem) + 'px';
+    }
+}
+
+// Destroy the object when we are done
+function _destroy() {
+    selected = null;
+}
+
+// Bind the functions...
+document.getElementById('draggable-element').onmousedown = function () {
+    _drag_init(this);
+    return false;
+};
+
+//load in advance
+document.getElementById('draggable-element').innerHTML = '<iframe  src="http://www.bbc.co.uk/weather/tn13" scrolling="no" style="height: 240px; border: 0px none; width: 255px; margin-bottom: 0px; margin-left: 8px;">  </iframe>';
+
+
+function showall(){
+var myPop = document.getElementById('draggable-element');
+myPop.style.display = 'block';
+}
+
+setTimeout(function(){ showall(); }, 1000);
+
+
+document.onmousemove = _move_elem;
+document.onmouseup = _destroy;
+</script>
+
